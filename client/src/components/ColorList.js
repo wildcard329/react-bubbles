@@ -25,7 +25,7 @@ const ColorList = ({ colors, updateColors, getData }) => {
       .put(`http://localhost:5000/api/colors/${id}`, colorToEdit)
       .then(res => {
         console.log(id)
-        console.log('flag',res)
+        console.log('flag',res.data)
         setColorToEdit(res.data);
         console.log('Put Request',res.data)
         const newColorsArray = colors.map(e => {
@@ -35,8 +35,9 @@ const ColorList = ({ colors, updateColors, getData }) => {
             return e
           }
         })
-        console.log(res.data)
+        console.log("update",newColorsArray,colorToEdit)
         updateColors(newColorsArray)
+        console.log("colors",colors)
       })
       .catch(err => console.error("Put Request Error",err.response,err))
     // Make a put request to save your updated color
