@@ -16,7 +16,7 @@ const Login = () => {
     axiosWithAuth()
       .post('/api/login', credentials)
       .then(res => {
-        console.log(res)
+        console.log("credentials",res)
         localStorage.setItem('token', res.data.payload);
         push('/protected');
       })
