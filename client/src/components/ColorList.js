@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {axiosWithAuth} from "../utils/axiosWithAuth";
 import {useParams} from "react-router-dom";
 
@@ -9,8 +9,9 @@ const initialColor = {
 };
 
 const ColorList = ({ colors, updateColors, getData }) => {
-  console.log("colorlist",colors);
+  // console.log("colorlist",colors);
   const {id} = useParams();
+  console.log('flag',colors)
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
@@ -24,18 +25,22 @@ const ColorList = ({ colors, updateColors, getData }) => {
     axiosWithAuth()
       .put(`http://localhost:5000/api/colors/${id}`, colorToEdit)
       .then(res => {
-        console.log(id)
+        console.log("probably undef",colorToEdit)
         console.log('flag',res.data)
+        console.log('flag2',colors)
         setColorToEdit(res.data);
         console.log('Put Request',res.data)
         const newColorsArray = colors.map(e => {
-          if (`${e.id}` === colorToEdit.id) {
+          if (`${e.id}` == colorToEdit.id) {
+            console.log("edit",colorToEdit)
             return colorToEdit
           } else {
+            console.log(colorToEdit.id)
+            console.log("no edit",`${e.id}`)
             return e
           }
         })
-        console.log("update",newColorsArray,colorToEdit)
+        console.log("update array",newColorsArray,"update edit",colorToEdit)
         updateColors(newColorsArray)
         console.log("colors",colors)
       })
