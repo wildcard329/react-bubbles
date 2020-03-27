@@ -13,7 +13,6 @@ const Login = () => {
     setCredentials({...credentials, [e.target.name]: e.target.value});
   }
   const login = e => {
-    e.preventDefault();
     axiosWithAuth()
       .post('/api/login', credentials)
       .then(res => {
@@ -41,6 +40,7 @@ const Login = () => {
           onChange={handleChange}
         />
       </form>
+      <button type="submit" onClick={login}>Log In</button>
     </div>
   );
 };
